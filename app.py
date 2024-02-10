@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 import openai
 #open ai key
-openai.api_key = '[Open-AI Key]' #insert your open ai key here
+openai.api_key = '[Open-AI key]' #insert your open ai key here
 
 popular_df = pickle.load(open('popular.pkl','rb'))
 pt = pickle.load(open('pt.pkl','rb'))
@@ -50,9 +50,9 @@ def recommend():
         book_title = i[0]
         prompt = f"Explain the relationship between the book '{user_input}' and '{book_title}'."
         response = openai.Completion.create(
-            engine="text-davinci-003",  # Choose the appropriate engine
+            engine="gpt-3.5-turbo-instruct",  # Choose the appropriate engine
             prompt=prompt,
-            max_tokens=100  # Adjust as needed
+            max_tokens=150  # Adjust as needed
         )
         explanation = response['choices'][0]['text']
         explanations.append(explanation)
@@ -70,5 +70,5 @@ def contact_ui():
     return render_template('contact.html')
 
 if __name__ == '__main__':
-    #app.run(debug= True, host="0.0.0.0", port= 80) #comment this if you dont want to host to your local network
-    app.run(debug = True)  #comment this if you dont want to run debug mode
+    app.run(debug= True, host="0.0.0.0", port= 80)
+    #app.run(debug = True)
